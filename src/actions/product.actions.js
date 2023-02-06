@@ -85,12 +85,12 @@ export function getProductToRemoveAction(id) {
   return async (dispatch) => {
     dispatch(getProductToRemove(id));
 
-    // try {
-    //   const response = await clientAxios.delete(`/products/${id}`);
-    //   dispatch(getProductToRemoveSuccess(response.data));
-    // } catch (error) {
-    //   dispatch(getProductToRemoveError());
-    // }
+    try {
+      await clientAxios.delete(`/products/${id}`);
+      dispatch(getProductToRemoveSuccess());
+    } catch (error) {
+      dispatch(getProductToRemoveError());
+    }
   };
 }
 
@@ -100,9 +100,10 @@ const getProductToRemove = (id) => ({
 });
 
 const getProductToRemoveSuccess = () => ({
-  type: GET_PRODUCT_TO_REMOVE_SUCCESS,
+  type: GET_PRODUCT_TO_REMOVE_SUCCESS
 });
 
 const getProductToRemoveError = () => ({
   type: GET_PRODUCT_TO_REMOVE_ERROR,
+  payload: true
 });
