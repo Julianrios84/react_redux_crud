@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import { updateProductAction } from '../actions/product.actions';
 
 const ProductUpdate = () => {
 
+  const navigate = useNavigate();
+
   const [product, setProduct] = useState({
     name: '', price: 0
   })
+
+  const dispatch = useDispatch();
 
   // Acceder al state del store
   const update = useSelector((state) => state.products.update)
@@ -16,16 +21,20 @@ const ProductUpdate = () => {
   }, [update])
 
   const handleChange = e => {
+    console.log(e.target.name, e.target.value)
     setProduct({
       ...product,
-      [e.targe.name]: e.targe.value
+      [e.target.name]: e.target.value
     })
   }
 
-  const {id, name, price} = update;
+  const {id, name, price} = product;
 
   const submitUpdateProduct = (e) => {
     e.preventDefault()
+
+    dispatch(updateProductAction(product))
+    navigate('/')
   }
 
 
@@ -46,7 +55,7 @@ const ProductUpdate = () => {
                 placeholder="Nombre producto"
                 name="name"
                 value={name}
-                onChange={ e => handleChange(e)}
+                onChange={handleChange}
               />
             </div>
             <div className="form-group">
@@ -57,7 +66,7 @@ const ProductUpdate = () => {
                 placeholder="Precio producto"
                 name="price"
                 value={price}
-                onChange={ e => handleChange(e)}
+                onChange={handleChange}
               />
             </div>
             <button

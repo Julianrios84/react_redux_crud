@@ -139,10 +139,10 @@ export function updateProductAction(product) {
 
     try {
       await clientAxios.put(`/products/${product.id}`, product);
-      // dispatch(getProductToRemoveSuccess());
+      dispatch(updateProductSuccess(product));
 
     } catch (error) {
-      
+      dispatch(updateProductError());
     }
   };
 }
@@ -151,3 +151,13 @@ const updateProduct = (product) => ({
   type: GET_PRODUCT_TO_UPDATE_START,
   payload: product
 })
+
+const updateProductSuccess = (product) => ({
+  type: GET_PRODUCT_TO_UPDATE_SUCCESS,
+  payload: product
+})
+
+const updateProductError = () => ({
+  type: GET_PRODUCT_TO_UPDATE_ERROR,
+  payload: true
+});

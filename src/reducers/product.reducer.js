@@ -9,7 +9,6 @@ import {
   GET_PRODUCT_TO_REMOVE_SUCCESS,
   GET_PRODUCT_TO_REMOVE_ERROR,
   GET_PRODUCT_TO_UPDATE,
-  GET_PRODUCT_TO_UPDATE_START,
   GET_PRODUCT_TO_UPDATE_SUCCESS,
   GET_PRODUCT_TO_UPDATE_ERROR
 } from '../types';
@@ -41,6 +40,7 @@ export default function (state = initialState, action) {
     case DOWNLOADING_PRODUCTS_ERROR:
     case CREATE_PRODUCT_ERROR:
     case GET_PRODUCT_TO_REMOVE_ERROR:
+    case GET_PRODUCT_TO_UPDATE_ERROR:
       return {
         ...state,
         loading: false,
@@ -64,15 +64,28 @@ export default function (state = initialState, action) {
     case GET_PRODUCT_TO_REMOVE_SUCCESS:
       return {
         ...state,
-        products: state.products.filter(product => product.id !== state.remove),
+        products: state.products.filter(
+          (product) => product.id !== state.remove
+        ),
         remove: null
-      }
+      };
 
     case GET_PRODUCT_TO_UPDATE:
       return {
         ...state,
         update: action.payload
-      }
+      };
+
+    case GET_PRODUCT_TO_UPDATE_SUCCESS:
+      return {
+        ...state,
+        update: null,
+        products: state.products.map((product) =>
+          product.id === action.payload.id
+            ? action.payload
+            : product
+        )
+      };
 
     default:
       return state;
