@@ -124,14 +124,6 @@ const getProductToRemoveError = () => ({
 export function getProductToUpdateAction(product) {
   return async (dispatch) => {
     dispatch(getProductToUpdate(product));
-
-    // try {
-    //   await clientAxios.put(`/products/${id}`);
-    //   dispatch(getProductToUpdateSuccess());
-
-    // } catch (error) {
-    //   dispatch(getProductToUpdateError());
-    // }
   };
 }
 
@@ -140,3 +132,22 @@ const getProductToUpdate = (product) => ({
   type: GET_PRODUCT_TO_UPDATE,
   payload: product
 });
+
+export function updateProductAction(product) {
+  return async (dispatch) => {
+    dispatch(updateProduct(product));
+
+    try {
+      await clientAxios.put(`/products/${product.id}`, product);
+      // dispatch(getProductToRemoveSuccess());
+
+    } catch (error) {
+      
+    }
+  };
+}
+
+const updateProduct = (product) => ({
+  type: GET_PRODUCT_TO_UPDATE_START,
+  payload: product
+})

@@ -1,16 +1,34 @@
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateProductAction } from '../actions/product.actions';
 
 const ProductUpdate = () => {
 
-  let navigate = useNavigate()
+  const [product, setProduct] = useState({
+    name: '', price: 0
+  })
+
   // Acceder al state del store
   const update = useSelector((state) => state.products.update)
-  if(!update)  {
-    return null;
+
+  useEffect(() => {
+    setProduct(update)
+  }, [update])
+
+  const handleChange = e => {
+    setProduct({
+      ...product,
+      [e.targe.name]: e.targe.value
+    })
   }
 
   const {id, name, price} = update;
+
+  const submitUpdateProduct = (e) => {
+    e.preventDefault()
+  }
+
+
   return (
     <div className="row justify-content-center">
     <div className="col-md-8">
@@ -19,7 +37,7 @@ const ProductUpdate = () => {
           <h2 className="text-center mb-4 font-weight-bold">
             Editar producto
           </h2>
-          <form className="">
+          <form onSubmit={submitUpdateProduct}>
             <div className="form-group">
               <label htmlFor="">Nombre producto</label>
               <input
@@ -28,6 +46,7 @@ const ProductUpdate = () => {
                 placeholder="Nombre producto"
                 name="name"
                 value={name}
+                onChange={ e => handleChange(e)}
               />
             </div>
             <div className="form-group">
@@ -38,6 +57,7 @@ const ProductUpdate = () => {
                 placeholder="Precio producto"
                 name="price"
                 value={price}
+                onChange={ e => handleChange(e)}
               />
             </div>
             <button
