@@ -1,5 +1,16 @@
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProductUpdate = () => {
+
+  let navigate = useNavigate()
+  // Acceder al state del store
+  const update = useSelector((state) => state.products.update)
+  if(!update)  {
+    return null;
+  }
+
+  const {id, name, price} = update;
   return (
     <div className="row justify-content-center">
     <div className="col-md-8">
@@ -16,6 +27,7 @@ const ProductUpdate = () => {
                 className="form-control"
                 placeholder="Nombre producto"
                 name="name"
+                value={name}
               />
             </div>
             <div className="form-group">
@@ -25,6 +37,7 @@ const ProductUpdate = () => {
                 className="form-control"
                 placeholder="Precio producto"
                 name="price"
+                value={price}
               />
             </div>
             <button
