@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { createProductAction } from '../actions/product.actions';
+import { showAlertAction, hiddenAlertAction } from '../actions/alert.actions';
 
-const ProductCreate = ({history}) => {
-  // Navigate 
+const ProductCreate = ({ history }) => {
+  // Navigate
   let navigate = useNavigate();
   // state del componente
   const [name, setName] = useState('');
@@ -12,8 +13,9 @@ const ProductCreate = ({history}) => {
   // utilizar use dispatch y te crea una funcion
   const dispatch = useDispatch();
   // Acceder al state del store
-  const loading = useSelector((state) => state.products.loading)
-  const error = useSelector((state) => state.products.error)
+  const loading = useSelector((state) => state.products.loading);
+  const error = useSelector((state) => state.products.error);
+  const alert = useSelector((state) => state.alert.alert);
   // mandar llammar el action de createProductAction
   const createProduct = (product) => dispatch(createProductAction(product));
   // cuando el usuario haga submit
@@ -22,8 +24,17 @@ const ProductCreate = ({history}) => {
 
     // validar formulario
     if (name.trim() === '' || price <= 0) {
+      const alert = {
+        message: 'Ambos campos son obligatorios',
+        classes: 'alert alert-danger text-center text-uppercase p3'
+      };
+
+      dispatch(showAlertAction(alert));
+
       return;
     }
+
+    dispatch(hiddenAlertAction());
 
     // Crear el nuevo producto
     createProduct({
@@ -32,7 +43,7 @@ const ProductCreate = ({history}) => {
     });
 
     // Redireccionar
-    navigate('/')
+    navigate('/');
   };
 
   return (
@@ -43,6 +54,9 @@ const ProductCreate = ({history}) => {
             <h2 className="text-center mb-4 font-weight-bold">
               Agregar nuevo producto
             </h2>
+
+            {alert ? <p className={alert.classes}>{alert.message}</p> : null}
+
             <form onSubmit={submitCreateProduct}>
               <div className="form-group">
                 <label htmlFor="">Nombre producto</label>
@@ -75,7 +89,11 @@ const ProductCreate = ({history}) => {
             </form>
 
             {loading ? <p>Cargando</p> : null}
-            {error ? <p className='alert alert-danger p2 mt-4 text-center '>Hubo un error</p> : null}
+            {error ? (
+              <p className="alert alert-danger p2 mt-4 text-center ">
+                Hubo un error
+              </p>
+            ) : null}
           </div>
         </div>
       </div>
