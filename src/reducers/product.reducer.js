@@ -25,12 +25,22 @@ export default function (state = initialState, action) {
         products: [...state.products, action.payload]
       }
 
+    case DOWNLOADING_PRODUCTS_ERROR:
     case CREATE_PRODUCT_ERROR:
       return {
         ...state,
         loading: false,
         error: action.payload
       }
+
+    case DOWNLOADING_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        products: action.payload
+      }
+
 
     default:
       return state;

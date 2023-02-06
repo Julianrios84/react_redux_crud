@@ -1,62 +1,79 @@
 import {
-  CREATE_PRODUCT, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_ERROR,
-  DOWNLOADING_PRODUCTS, DOWNLOADING_PRODUCTS_SUCCESS, DOWNLOADING_PRODUCTS_ERROR
-} from '../types'
+  CREATE_PRODUCT,
+  CREATE_PRODUCT_SUCCESS,
+  CREATE_PRODUCT_ERROR,
+  DOWNLOADING_PRODUCTS,
+  DOWNLOADING_PRODUCTS_SUCCESS,
+  DOWNLOADING_PRODUCTS_ERROR
+} from '../types';
 
-import clientAxios from '../config/axios.config'
-import Swal from 'sweetalert2'
+import clientAxios from '../config/axios.config';
+import Swal from 'sweetalert2';
 
 export function createProductAction(product) {
   return async (dispatch) => {
-    dispatch(createProduct())
-    
+    dispatch(createProduct());
+
     try {
       // Insertar en la API
-      await clientAxios.post('/products', product)
+      await clientAxios.post('/products', product);
       // Actualizar el state
-      dispatch(createProductSuccess(product))
+      dispatch(createProductSuccess(product));
       // Alerta
-      Swal.fire(
-        'Correcto',
-        'El producto se creo correctamente.',
-        'success'
-      )
+      Swal.fire('Correcto', 'El producto se creo correctamente.', 'success');
     } catch (error) {
       // Si hay un error cambiaar el state
-      dispatch(createProductError(true))
+      dispatch(createProductError(true));
       // Alerta Error
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Hubo un error, intenta de nuevo'
-      })
+      });
     }
-  }
+  };
 }
 
 const createProduct = () => ({
   type: CREATE_PRODUCT,
   payload: true
-})
+});
 
 const createProductSuccess = (product) => ({
   type: CREATE_PRODUCT_SUCCESS,
   payload: product
-})
+});
 
 const createProductError = (status) => ({
   type: CREATE_PRODUCT_ERROR,
   payload: status
-})
-
+});
 
 export function downloadingProductsAction() {
   return async (dispatch) => {
-    dispatch(downloadingProducts())
-  }
+    dispatch(downloadingProducts());
+
+    try {
+      const response = await clientAxios.get('/products');
+      dispatch(downloadingProductsSuccess(response.data));
+    } catch (error) {
+      dispatch(downloadingProductsError());
+    }
+  };
 }
 
 const downloadingProducts = () => ({
   type: DOWNLOADING_PRODUCTS,
   payload: true
-})
+});
+
+const downloadingProductsSuccess = (products) => ({
+  type: DOWNLOADING_PRODUCTS_SUCCESS,
+  payload: products
+});
+
+
+const downloadingProductsError = () => ({
+  type: DOWNLOADING_PRODUCTS_ERROR,
+  payload: true
+});

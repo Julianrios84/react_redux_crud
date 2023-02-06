@@ -1,6 +1,7 @@
-import { Fragment, useEffect } from "react"
+import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { downloadingProductsAction } from '../actions/product.actions';
+import Product from './Product';
 
 const ProductList = () => {
   // utilizar use dispatch y te crea una funcion
@@ -8,9 +9,12 @@ const ProductList = () => {
 
   useEffect(() => {
     // Consultar la API
-    const loadProducts = ( ) => dispatch(downloadingProductsAction())
+    const loadProducts = () => dispatch(downloadingProductsAction());
     loadProducts();
-  }, [])
+  }, []);
+
+  // Acceder al state del store
+  const products = useSelector((state) => state.products.products);
 
   return (
     <Fragment>
@@ -23,10 +27,20 @@ const ProductList = () => {
             <th scope="col">Acciones</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {products.length === 0 ? (
+            <tr>
+              <td colSpan="3">No hay productos</td>
+            </tr>
+          ) : (
+            products.map((product) => (
+              <Product key={product.id} product={product} />
+            ))
+          )}
+        </tbody>
       </table>
     </Fragment>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;
