@@ -88,6 +88,14 @@ export function getProductToRemoveAction(id) {
     try {
       await clientAxios.delete(`/products/${id}`);
       dispatch(getProductToRemoveSuccess());
+
+      // Si se elimina , mostramos alerta
+      Swal.fire(
+        'Eliminado!',
+        'El producto se elimino correctamente.',
+        'success'
+      )
+
     } catch (error) {
       dispatch(getProductToRemoveError());
     }
