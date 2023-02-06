@@ -8,6 +8,9 @@ const ProductCreate = () => {
   const [price, setPrice] = useState(0);
   // utilizar use dispatch y te crea una funcion
   const dispatch = useDispatch();
+  // Acceder al state del store
+  const loading = useSelector((state) => state.products.loading)
+  const error = useSelector((state) => state.products.error)
   // mandar llammar el action de createProductAction
   const createProduct = (product) => dispatch(createProductAction(product));
   // cuando el usuario haga submit
@@ -64,6 +67,9 @@ const ProductCreate = () => {
                 Agregar
               </button>
             </form>
+
+            {loading ? <p>Cargando</p> : null}
+            {error ? <p className='alert alert-danger p2 mt-4 text-center '>Hubo un error</p> : null}
           </div>
         </div>
       </div>
