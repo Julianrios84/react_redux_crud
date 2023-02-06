@@ -19,5 +19,5 @@ export function hiddenAlertAction() {
 }
 
 const hiddenAlert = () => ({
-  type: SHOW_ALERT
+  type: HIDDEN_ALERT
 });

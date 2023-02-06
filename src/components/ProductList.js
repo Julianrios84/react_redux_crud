@@ -11,6 +11,7 @@ const ProductList = () => {
     // Consultar la API
     const loadProducts = () => dispatch(downloadingProductsAction());
     loadProducts();
+    // eslint-disable-next-line
   }, []);
 
   // Acceder al state del store

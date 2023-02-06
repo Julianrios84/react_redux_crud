@@ -28,7 +28,7 @@ const ProductUpdate = () => {
     })
   }
 
-  const {id, name, price} = product;
+  const { name, price} = product;
 
   const submitUpdateProduct = (e) => {
     e.preventDefault()

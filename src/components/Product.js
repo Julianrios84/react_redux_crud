@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Product = ({ product }) => {
-  const { id, name, price } = product;
+  const { name, price } = product;
   
   let navigate = useNavigate()
 
