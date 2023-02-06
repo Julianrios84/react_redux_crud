@@ -13,7 +13,7 @@ const Header = () => {
       </div>
       <Link
         className="btn btn-danger nuevo-post d-block d-md-inline-block"
-        to={'/product/add'}
+        to={'/product/create'}
       >
         Agregar Producto &#43;
       </Link>
