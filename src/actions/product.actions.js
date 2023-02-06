@@ -1,5 +1,6 @@
 import {
-  CREATE_PRODUCT, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_ERROR
+  CREATE_PRODUCT, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_ERROR,
+  DOWNLOADING_PRODUCTS, DOWNLOADING_PRODUCTS_SUCCESS, DOWNLOADING_PRODUCTS_ERROR
 } from '../types'
 
 import clientAxios from '../config/axios.config'
@@ -46,4 +47,16 @@ const createProductSuccess = (product) => ({
 const createProductError = (status) => ({
   type: CREATE_PRODUCT_ERROR,
   payload: status
+})
+
+
+export function downloadingProductsAction() {
+  return async (dispatch) => {
+    dispatch(downloadingProducts())
+  }
+}
+
+const downloadingProducts = () => ({
+  type: DOWNLOADING_PRODUCTS,
+  payload: true
 })

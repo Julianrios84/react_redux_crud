@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { createProductAction } from '../actions/product.actions';
 
 const ProductCreate = ({history}) => {
+  // Navigate 
+  let navigate = useNavigate();
   // state del componente
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
@@ -29,7 +32,7 @@ const ProductCreate = ({history}) => {
     });
 
     // Redireccionar
-    history.push('/')
+    navigate('/')
   };
 
   return (

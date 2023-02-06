@@ -1,5 +1,6 @@
 import {
-  CREATE_PRODUCT, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_ERROR
+  CREATE_PRODUCT, CREATE_PRODUCT_SUCCESS, CREATE_PRODUCT_ERROR,
+  DOWNLOADING_PRODUCTS, DOWNLOADING_PRODUCTS_SUCCESS, DOWNLOADING_PRODUCTS_ERROR
 } from '../types'
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-
+    case DOWNLOADING_PRODUCTS:
     case CREATE_PRODUCT:
       return {
         ...state,
