@@ -27,7 +27,8 @@ export default function (state = initialState, action) {
     case CREATE_PRODUCT_ERROR:
       return {
         ...state,
-        loading: action.payload
+        loading: false,
+        error: action.payload
       }
 
     default:
