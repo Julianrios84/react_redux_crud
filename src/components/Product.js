@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getProductToRemoveAction } from '../actions/product.actions';
 import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
+
+
 
 const Product = ({ product }) => {
   const { id, name, price } = product;
+  
+  let navigate = useNavigate()
 
   // utilizar use dispatch y te crea una funcion
   const dispatch = useDispatch();
@@ -30,7 +34,9 @@ const Product = ({ product }) => {
 
   }
 
-
+  const redirectUpdate = (product) => {
+    navigate(`product/update/${product.id}`)
+  }
 
   return (
     <tr>
@@ -39,9 +45,9 @@ const Product = ({ product }) => {
         <span className="font-weight-bold">$ {price}</span>
       </td>
       <td className="acciones">
-        <Link to={`product/update/${id}`} className="btn btn-primary mr-2">
+        <button type='button' className="btn btn-primary mr-2" onClick={() => redirectUpdate(product)}>
           Editar
-        </Link>
+        </button>
         <button type='button' className='btn btn-danger' onClick={confirmRemoveProduct}>Eliminar</button>
       </td>
     </tr>
