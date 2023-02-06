@@ -3,6 +3,7 @@ import {
 } from '../types'
 
 import clientAxios from '../config/axios.config'
+import Swal from 'sweetalert2'
 
 export function createProductAction(product) {
   return async (dispatch) => {
@@ -13,9 +14,21 @@ export function createProductAction(product) {
       await clientAxios.post('/products', product)
       // Actualizar el state
       dispatch(createProductSuccess(product))
+      // Alerta
+      Swal.fire(
+        'Correcto',
+        'El producto se creo correctamente.',
+        'success'
+      )
     } catch (error) {
       // Si hay un error cambiaar el state
       dispatch(createProductError(true))
+      // Alerta Error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error, intenta de nuevo'
+      })
     }
   }
 }

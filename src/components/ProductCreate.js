@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProductAction } from '../actions/product.actions';
 
-const ProductCreate = () => {
+const ProductCreate = ({history}) => {
   // state del componente
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
@@ -27,6 +27,9 @@ const ProductCreate = () => {
       name,
       price
     });
+
+    // Redireccionar
+    history.push('/')
   };
 
   return (
