@@ -7,14 +7,18 @@ import {
   DOWNLOADING_PRODUCTS_ERROR,
   GET_PRODUCT_TO_REMOVE,
   GET_PRODUCT_TO_REMOVE_SUCCESS,
-  GET_PRODUCT_TO_REMOVE_ERROR
+  GET_PRODUCT_TO_REMOVE_ERROR,
+  GET_PRODUCT_TO_UPDATE,
+  GET_PRODUCT_TO_UPDATE_SUCCESS,
+  GET_PRODUCT_TO_UPDATE_ERROR
 } from '../types';
 
 const initialState = {
   products: [],
   error: null,
   loading: false,
-  remove: null
+  remove: null,
+  update: null
 };
 
 export default function (state = initialState, action) {
@@ -61,6 +65,12 @@ export default function (state = initialState, action) {
         ...state,
         products: state.products.filter(product => product.id !== state.remove),
         remove: null
+      }
+
+    case GET_PRODUCT_TO_UPDATE:
+      return {
+        ...state,
+        update: action.payload
       }
 
     default:

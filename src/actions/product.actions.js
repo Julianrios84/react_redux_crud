@@ -7,7 +7,10 @@ import {
   DOWNLOADING_PRODUCTS_ERROR,
   GET_PRODUCT_TO_REMOVE,
   GET_PRODUCT_TO_REMOVE_SUCCESS,
-  GET_PRODUCT_TO_REMOVE_ERROR
+  GET_PRODUCT_TO_REMOVE_ERROR,
+  GET_PRODUCT_TO_UPDATE,
+  GET_PRODUCT_TO_UPDATE_SUCCESS,
+  GET_PRODUCT_TO_UPDATE_ERROR
 } from '../types';
 
 import clientAxios from '../config/axios.config';
@@ -114,4 +117,25 @@ const getProductToRemoveSuccess = () => ({
 const getProductToRemoveError = () => ({
   type: GET_PRODUCT_TO_REMOVE_ERROR,
   payload: true
+});
+
+
+export function getProductToUpdateAction(product) {
+  return async (dispatch) => {
+    dispatch(getProductToUpdate(product));
+
+    // try {
+    //   await clientAxios.put(`/products/${id}`);
+    //   dispatch(getProductToUpdateSuccess());
+
+    // } catch (error) {
+    //   dispatch(getProductToUpdateError());
+    // }
+  };
+}
+
+
+const getProductToUpdate = (product) => ({
+  type: GET_PRODUCT_TO_UPDATE,
+  payload: product
 });

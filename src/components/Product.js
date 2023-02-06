@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { getProductToRemoveAction } from '../actions/product.actions';
+import { getProductToRemoveAction, getProductToUpdateAction } from '../actions/product.actions';
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
 
@@ -35,6 +35,7 @@ const Product = ({ product }) => {
   }
 
   const redirectUpdate = (product) => {
+    dispatch(getProductToUpdateAction(product));
     navigate(`product/update/${product.id}`)
   }
 
